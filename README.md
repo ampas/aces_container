@@ -28,23 +28,39 @@ below.
 
         $ yum install cmake
 
-* OS X (Install homebrew if not already installed)
+* OS X
 
-        $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
-        $ brew install cmake
-
-
+    * Install homebrew if not already installed
+    
+            $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+                
+    * Install Cmake
+    
+            $ brew install cmake         
+             
 ## Installation ##
 
-from the root source directory:
+* OS X
 
-    $ mkdir build && cd build
-    $ cmake ..
-    $ make
-    $ sudo make install
+    * Install homebrew if not already installed
 
-The default process will install ``libAcesContainer.so`` to ``/usr/local/lib``
-and a number of header files into ``/usr/local/include/aces``
+            $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+        
+    * Install aces_container
+    
+            $ brew install aces_container  
+        
+* From Source
+
+    From the root source directory:
+    
+        $ mkdir build && cd build
+        $ cmake ..
+        $ make
+        $ sudo make install
+
+    The default process will install ``libAcesContainer.so`` to ``/usr/local/lib``
+    and a number of header files into ``/usr/local/include/aces``
 
 
 ## License ##
