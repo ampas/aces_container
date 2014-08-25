@@ -58,7 +58,7 @@ set( INSTALL_INCLUDE_DIR include CACHE PATH "Install directory for public header
 if( WIN32 AND NOT CYGWIN )
   set(DEF_INSTALL_CMAKE_DIR CMake)
 else()
-  set(DEF_INSTALL_CMAKE_DIR lib/CMake/AcesContainer)
+  set(DEF_INSTALL_CMAKE_DIR lib${LIB_SUFFIX}/CMake/AcesContainer)
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Install directory for project CMake files" )
 
@@ -82,7 +82,13 @@ add_library( AcesContainer SHARED
 	aces_md5.cc
 )
 
-install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${INSTALL_LIB_DIR})
+# Set the build version (VERSION) and the API version (SOVERSION)
+SET_TARGET_PROPERTIES(AcesContainer
+                      PROPERTIES
+                      VERSION ${AcesContainer_VERSION}
+                      SOVERSION ${AcesContainer_MAJOR_VERSION})
+
+install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${LIB_INSTALL_DIR})
 install (FILES 
 			aces_errors.h
 			aces_genericWriter.h
@@ -97,14 +103,14 @@ install (FILES
 			aces_types.h
 			aces_writeattributes.h
 		 DESTINATION 
-		 	${INSTALL_INCLUDE_DIR}/aces
+                       ${INCLUDE_INSTALL_DIR}/aces
 		 )
 
 
 find_package( PkgConfig )
 if ( PKG_CONFIG_FOUND )
 configure_file(config/AcesContainer.pc.in "${PROJECT_BINARY_DIR}/AcesContainer.pc" @ONLY)
-install( FILES "${PROJECT_BINARY_DIR}/AcesContainer.pc" DESTINATION lib/pkgconfig COMPONENT dev )
+install( FILES "${PROJECT_BINARY_DIR}/AcesContainer.pc" DESTINATION lib${LIB_SUFFIX}/pkgconfig COMPONENT dev )
 endif()
 
 include_directories(

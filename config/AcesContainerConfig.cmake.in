@@ -53,10 +53,10 @@
 # find paths
 get_filename_component( AcesContainer_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH )
 
-set(AcesContainer_INCLUDE_DIRS "@CONF_INCLUDE_DIRS@")
+set(AcesContainer_INCLUDE_DIRS "@INCLUDE_INSTALL_DIR@")
 
 set(AcesContainer_LIBRARIES AcesContainer )
-set(AcesContainer_LIBRARY_DIRS "@CONF_LIB_DIRS@" )
+set(AcesContainer_LIBRARY_DIRS "@LIB_INSTALL_DIR@" )
 set(AcesContainer_VERSION "@AcesContainer_VERSION@" )
 
 set(AcesContainer_FOUND 1 )
