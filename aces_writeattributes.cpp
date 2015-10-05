@@ -116,8 +116,12 @@ aces_writeattributes:: aces_writeattributes()
 {
 	//	Not that we really need a stream. We could just use a char * pointer.
 	
-	outStream = new ostringstream (ostringstream::out | ostringstream::binary);	
-	
+//    outStream = new ostringstream (ostringstream::out | ostringstream::binary);
+    
+    outputBuffer = new char[maxAcesHeaderSize + 2 * sizeof(int32)];
+    
+    pos = 0;
+
 	UseLongAttributeNamesAndTypes = false;
 	
 	DetectHostByteOrder (  );
@@ -125,7 +129,8 @@ aces_writeattributes:: aces_writeattributes()
 
 aces_writeattributes:: ~aces_writeattributes()
 {
-	delete outStream;
+//	delete outStream;
+//    delete outputBuffer;
 }
 
 //	=====================================================================
@@ -135,30 +140,40 @@ aces_writeattributes:: ~aces_writeattributes()
 //	set the image output buffer as the target buffer for the string stream
 void aces_writeattributes:: SetStreamBuffer( char * outputBuffer1, uint64 outputBufferSize1 )
 {
-	outputBuffer = outputBuffer1;
+    if (outputBuffer1) {
+        delete [] outputBuffer;
+        outputBuffer = outputBuffer1;
+    }
+    
 	outputBufferSize = outputBufferSize1;
-	outStream -> rdbuf() -> pubsetbuf( outputBuffer, (streamsize) outputBufferSize );
+//	outStream -> rdbuf() -> pubsetbuf( outputBuffer, (streamsize) outputBufferSize );
 }
 
 //	=====================================================================
 
 streampos aces_writeattributes:: StreamPosition()
 {
-	return outStream -> tellp ();
+//	return outStream -> tellp ();
+    
+    return (streampos) pos;
 }
 
 //	=====================================================================
 
 void aces_writeattributes:: SetStreamPosition( const streampos position )
 {
-	outStream -> seekp ( position );
+//	outStream -> seekp ( position );
+    pos = (uint64) position;
 }
 
 //	=====================================================================
 
 inline void aces_writeattributes:: writeChar	( const char value )
 {
-	outStream -> put ( value );
+//	outStream -> put ( value );
+    
+    assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
+    outputBuffer[pos++] = value;
 }
 
 //	=====================================================================
@@ -175,8 +190,14 @@ void aces_writeattributes:: DetectHostByteOrder ( void )
 
 void aces_writeattributes:: write2Bytes	( const uint16 * value )
 {
+    assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
+
 	if (HostByteOrderIsLittleEndian) {
-		outStream -> write ( (char *) value, 2 );
+//		outStream -> write ( (char *) value, 2 );
+        
+        for (int i = 0; i < 2; i++) {
+            outputBuffer[pos++] = ((char *) value)[i];
+        }
 	}	else {
 		writeChar ( ((char *) value) [1] );
 		writeChar ( ((char *) value) [0] );
@@ -185,8 +206,14 @@ void aces_writeattributes:: write2Bytes	( const uint16 * value )
 
 void aces_writeattributes:: write4Bytes	( const uint32 * value )
 {
+    assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
+
 	if (HostByteOrderIsLittleEndian) {
-		outStream -> write ( (char *) value, 4 );
+//		outStream -> write ( (char *) value, 4 );
+        
+        for (int i = 0; i < 4; i++) {
+            outputBuffer[pos++] = ((char *) value)[i];
+        }
 	}	else {
 		writeChar ( ((char *) value) [3] );
 		writeChar ( ((char *) value) [2] );
@@ -197,8 +224,14 @@ void aces_writeattributes:: write4Bytes	( const uint32 * value )
 
 void aces_writeattributes:: write8Bytes	( const uint64 * value )
 {
+    assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
+
 	if (HostByteOrderIsLittleEndian) {
-		outStream -> write ( (char *) value, 8 );
+//		outStream -> write ( (char *) value, 8 );
+        
+        for (int i = 0; i < 8; i++) {
+            outputBuffer[pos++] = ((char *) value)[i];
+        }
 	}	else {
 		writeChar ( ((char *) value) [7] );
 		writeChar ( ((char *) value) [6] );
@@ -265,7 +298,13 @@ void aces_writeattributes:: writeBasicType	( const real64 value )
 
 void aces_writeattributes:: writeStringNZ	( const string & value )
 {
-	outStream -> write ( value.data(), value.size() );
+//	outStream -> write ( value.data(), value.size() );
+    
+    assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
+    
+    for (int32 i = 0; i < value.size(); i++) {
+        outputBuffer[pos++] = ((char *)(value.c_str()))[i];
+    }
 }
 
 void aces_writeattributes:: writeStringZ	( const string & value )
@@ -584,10 +623,10 @@ void aces_writeattributes:: setChecksums ( )
 //	MOVE TO ANOTHER FILE. Which attributes to write is application-specific.
 
 void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,  
-											  char * outputBuffer, 
-											  uint64 outputBufferSize )
+											  char * outputB,
+											  uint64 outputBS )
 {
-	SetStreamBuffer( outputBuffer, outputBufferSize );
+	SetStreamBuffer( outputB, outputBS );
 
 	writeMagicNumberAndVersion ();
 	
@@ -605,11 +644,17 @@ void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,
 		
 	// terminator
 	writeChar ( 0 );
-	
+    
+//    outputB = outputBuffer-pos;
+//    
+//    for (uint64 i=0; i<pos; i++) {
+//        outputB[i] = outputBuffer[i];
+//    }
+    
 	lineOffsetTablePosition = StreamPosition();
 		
 	SetStreamPosition( lineOffsetTablePosition );
-
+    
 	assert ( lineOffsetTablePosition <= maxAcesHeaderSize + 2 * sizeof(int32) );// max header size
 }	
 

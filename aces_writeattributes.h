@@ -143,10 +143,11 @@ protected:
 	//	=====================================================================
 private:
 	
-	ostringstream * outStream;
+//     std::ostringstream * outStream;
 	
 	char *			outputBuffer;
 	uint64			outputBufferSize;
+    uint64          pos;
 	
 	void		SetStreamBuffer				( char * outputBuffer, uint64 outputBufferSize );
 	streampos	StreamPosition				( void );
