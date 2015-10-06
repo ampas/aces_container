@@ -143,7 +143,6 @@ protected:
 	//	=====================================================================
 private:
 	
-//     std::ostringstream * outStream;
 	char *			outputBuffer;
 	uint64			outputBufferSize;
     uint64          pos;

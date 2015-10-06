@@ -116,7 +116,6 @@ aces_writeattributes:: aces_writeattributes()
 {
 	//	Not that we really need a stream. We could just use a char * pointer.
 	
-//    outStream = new ostringstream (ostringstream::out | ostringstream::binary);
     outputBuffer = new char[maxAcesHeaderSize + 2 * sizeof(int32)];
     
     pos = 0;
@@ -128,8 +127,7 @@ aces_writeattributes:: aces_writeattributes()
 
 aces_writeattributes:: ~aces_writeattributes()
 {
-//	delete outStream;
-//    delete outputBuffer;
+
 }
 
 //	=====================================================================
@@ -145,14 +143,12 @@ void aces_writeattributes:: SetStreamBuffer( char * outputBuffer1, uint64 output
     }
     
 	outputBufferSize = outputBufferSize1;
-//	outStream -> rdbuf() -> pubsetbuf( outputBuffer, (streamsize) outputBufferSize );
 }
 
 //	=====================================================================
 
 streampos aces_writeattributes:: StreamPosition()
 {
-//	return outStream -> tellp ();
     return (streampos) pos;
 }
 
@@ -160,7 +156,6 @@ streampos aces_writeattributes:: StreamPosition()
 
 void aces_writeattributes:: SetStreamPosition( const streampos position )
 {
-//	outStream -> seekp ( position );
     pos = (uint64) position;
 }
 
@@ -168,8 +163,6 @@ void aces_writeattributes:: SetStreamPosition( const streampos position )
 
 inline void aces_writeattributes:: writeChar	( const char value )
 {
-//	outStream -> put ( value );
-    
     assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
     outputBuffer[pos++] = value;
 }
@@ -191,7 +184,6 @@ void aces_writeattributes:: write2Bytes	( const uint16 * value )
     assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
 
 	if (HostByteOrderIsLittleEndian) {
-//		outStream -> write ( (char *) value, 2 );
         
         for (int i = 0; i < 2; i++) {
             outputBuffer[pos++] = ((char *) value)[i];
@@ -207,7 +199,6 @@ void aces_writeattributes:: write4Bytes	( const uint32 * value )
     assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
 
 	if (HostByteOrderIsLittleEndian) {
-//		outStream -> write ( (char *) value, 4 );
         
         for (int i = 0; i < 4; i++) {
             outputBuffer[pos++] = ((char *) value)[i];
@@ -225,7 +216,6 @@ void aces_writeattributes:: write8Bytes	( const uint64 * value )
     assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
 
 	if (HostByteOrderIsLittleEndian) {
-//		outStream -> write ( (char *) value, 8 );
         
         for (int i = 0; i < 8; i++) {
             outputBuffer[pos++] = ((char *) value)[i];
@@ -295,9 +285,7 @@ void aces_writeattributes:: writeBasicType	( const real64 value )
 //	write string without and with terminating 0
 
 void aces_writeattributes:: writeStringNZ	( const string & value )
-{
-//	outStream -> write ( value.data(), value.size() );
-    
+{    
     assert( pos <= maxAcesHeaderSize + 2 * sizeof(int32) );
     
     for (int32 i = 0; i < value.size(); i++) {
