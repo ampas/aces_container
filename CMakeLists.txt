@@ -47,6 +47,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (AcesContainer)
 
+set( CMAKE_MACOSX_RPATH 1 )
 set( AcesContainer_MAJOR_VERSION 1 )
 set( AcesContainer_MINOR_VERSION 0 )
 set( AcesContainer_PATCH_VERSION 0 )

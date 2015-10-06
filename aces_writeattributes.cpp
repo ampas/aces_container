@@ -117,7 +117,6 @@ aces_writeattributes:: aces_writeattributes()
 	//	Not that we really need a stream. We could just use a char * pointer.
 	
 //    outStream = new ostringstream (ostringstream::out | ostringstream::binary);
-    
     outputBuffer = new char[maxAcesHeaderSize + 2 * sizeof(int32)];
     
     pos = 0;
@@ -154,7 +153,6 @@ void aces_writeattributes:: SetStreamBuffer( char * outputBuffer1, uint64 output
 streampos aces_writeattributes:: StreamPosition()
 {
 //	return outStream -> tellp ();
-    
     return (streampos) pos;
 }
 
@@ -624,9 +622,9 @@ void aces_writeattributes:: setChecksums ( )
 
 void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,  
 											  char * outputB,
-											  uint64 outputBS )
+											  uint64 outputBSize )
 {
-	SetStreamBuffer( outputB, outputBS );
+	SetStreamBuffer( outputB, outputBSize );
 
 	writeMagicNumberAndVersion ();
 	
@@ -644,12 +642,6 @@ void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,
 		
 	// terminator
 	writeChar ( 0 );
-    
-//    outputB = outputBuffer-pos;
-//    
-//    for (uint64 i=0; i<pos; i++) {
-//        outputB[i] = outputBuffer[i];
-//    }
     
 	lineOffsetTablePosition = StreamPosition();
 		
