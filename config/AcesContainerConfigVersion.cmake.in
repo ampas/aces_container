@@ -1,4 +1,4 @@
-# Copyright © 2013 Academy of Motion Picture Arts and Sciences ("A.M.P.A.S.").
+# Copyright © 2015 Academy of Motion Picture Arts and Sciences ("A.M.P.A.S.").
 # Portions contributed by others as indicated. All rights reserved.
 # 
 # A worldwide, royalty-free, non-exclusive right to copy, modify, create

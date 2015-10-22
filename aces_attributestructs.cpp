@@ -1,4 +1,4 @@
-// Copyright © 2013 Academy of Motion Picture Arts and Sciences ("A.M.P.A.S.").
+// Copyright © 2015 Academy of Motion Picture Arts and Sciences ("A.M.P.A.S.").
 // Portions contributed by others as indicated. All rights reserved.
 // 
 // A worldwide, royalty-free, non-exclusive right to copy, modify, create
@@ -59,7 +59,7 @@
 // The ACES Container Writer is provided by Adobe Systems Incorporated under the 
 // following terms and conditions:
 // 
-// Copyright © 2013 Adobe Systems Incorporated ("Adobe"). All rights reserved.
+// Copyright © 2015 Adobe Systems Incorporated ("Adobe"). All rights reserved.
 // 
 // A worldwide, royalty-free, non-exclusive right to copy, modify, create
 // derivatives, and use, in source and binary forms, is hereby granted, subject 
