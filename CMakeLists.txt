@@ -47,7 +47,8 @@
 cmake_minimum_required (VERSION 2.6)
 project (AcesContainer)
 
-set( CMAKE_MACOSX_RPATH 1 )
+include (GenerateExportHeader)
+
 set( AcesContainer_MAJOR_VERSION 1 )
 set( AcesContainer_MINOR_VERSION 0 )
 set( AcesContainer_PATCH_VERSION 1 )
@@ -56,8 +57,14 @@ set( AcesContainer_VERSION ${AcesContainer_MAJOR_VERSION}.${AcesContainer_MINOR_
 set( INSTALL_LIB_DIR lib CACHE PATH "Install directory for libraries" )
 set( INSTALL_INCLUDE_DIR include CACHE PATH "Install directory for public header files" )
 
+
+if(APPLE)
+  set( CMAKE_MACOSX_RPATH 1 )
+endif()
+
 if( WIN32 AND NOT CYGWIN )
   set(DEF_INSTALL_CMAKE_DIR CMake)
+  set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W0" )
 else()
   set(DEF_INSTALL_CMAKE_DIR lib/CMake/AcesContainer)
 endif()
@@ -71,6 +78,17 @@ foreach( p LIB INCLUDE CMAKE )
   endif()
 endforeach()
 
+OPTION (BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
+SET (LIB_TYPE_STATIC)
+IF (BUILD_SHARED_LIBS)
+  SET (LIB_TYPE_SHARED)
+ENDIF (BUILD_SHARED_LIBS)
+
+OPTION (BUILD_STATIC_LIBS  "Build Static Libraries" OFF)
+SET (LIB_TYPE_SHARED)
+IF (BUILD_STATIC_LIBS)
+  SET (LIB_TYPE_STATIC)
+ENDIF (BUILD_STATIC_LIBS)
 
 add_library( AcesContainer SHARED
 	aces_iostat.cpp
@@ -81,6 +99,13 @@ add_library( AcesContainer SHARED
 	aces_typesAndRationals.cpp
 	aces_writeattributes.cpp
 	aces_md5.cc
+)
+
+GENERATE_EXPORT_HEADER( AcesContainer 
+             BASE_NAME AcesContainer
+             EXPORT_MACRO_NAME AcesContainer_EXPORT
+             EXPORT_FILE_NAME AcesContainer_Export.h
+             STATIC_DEFINE AcesContainer_BUILT_AS_STATIC
 )
 
 install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${INSTALL_LIB_DIR})
@@ -115,10 +140,13 @@ include_directories(
 # Add all targets to the build-tree export set
 export(TARGETS AcesContainer
   FILE "${PROJECT_BINARY_DIR}/AcesContainerTargets.cmake")
+# export(TARGETS AcesContainer_lib
+#  FILE "${PROJECT_BINARY_DIR}/AcesContainerTargets.cmake")
  
 # Export the package for use from the build-tree
 # (this registers the build-tree with a global CMake-registry)
 export(PACKAGE AcesContainer)
+# export(PACKAGE AcesContainer_lib)
 
 # Create the FooBarConfig.cmake and FooBarConfigVersion files
 file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
