@@ -99,8 +99,11 @@
 // APPLICATIONS THEREOF, HELD BY PARTIES OTHER THAN ADOBE, WHETHER DISCLOSED OR
 // UNDISCLOSED.
 
-#include "aces_timing.h"
+#ifdef _WIN32
+	#pragma comment( lib, "winmm.lib" )
+#endif
 
+#include "aces_timing.h"
 #include <iostream>
 #include <iomanip>
 
