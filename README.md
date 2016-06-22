@@ -68,12 +68,14 @@ below.
 		
                
 * Windows 
+    * Download CMake Windows Installer from https://cmake.org/download/. Be sure add "CMake" to the path during installation. 
 
 	* x86	
 	    
 	    From the root source directory:
 
-			$ mkdir build && cd build
+			$ mkdir build 
+			$ cd build
 			$ cmake .. -G "Visual Studio 10 2010"
 			
 		Please check the version of Visual Studio on your PC before using cmake to generate any solution files. Some other available versions are ``Visual Studio 11 2012`` and ``Visual Studio 14 2015``. The Visual Studio solution files will be generated in ``.\build``. You can open ``AcesContainer.sln`` project solution file to continue the building process. If succeed, the ``AcesContainer.dll`` should be in ``.\Debug`` and/or ``.\Release``. 
@@ -83,7 +85,8 @@ below.
 	    
 	    From the root source directory:
 
-			$ mkdir build && cd build
+			$ mkdir build
+			$ cd build
 			$ cmake .. -G "Visual Studio 10 2010 Win64"
 			
 		Please check the version of Visual Studio on your PC before using cmake to generate any solution files. Some other available versions are ``Visual Studio 11 2012 Win64`` and ``Visual Studio 14 2015 Win64``. The Visual Studio solution files will be generated in ``.\build``. You can open ``AcesContainer.sln`` project solution file to continue the building process. If succeed, the ``AcesContainer.dll`` should be in ``.\Debug`` and/or ``.\Release``. 
