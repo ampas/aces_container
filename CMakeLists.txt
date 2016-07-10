@@ -78,19 +78,14 @@ foreach( p LIB INCLUDE CMAKE )
   endif()
 endforeach()
 
-OPTION (BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
-SET (LIB_TYPE_STATIC FALSE)
-IF (BUILD_SHARED_LIBS)
-  SET (LIB_TYPE_SHARED TRUE)
-ENDIF (BUILD_SHARED_LIBS)
+OPTION (BUILD_SHARED_LIBS "Build Shared Libraries" ON)
+IF ( BUILD_SHARED_LIBS )
+  SET (DO_SHARED SHARED)
+ELSE ()
+  SET (DO_SHARED STATIC)
+ENDIF ()
 
-OPTION (BUILD_STATIC_LIBS  "Build Static Libraries" OFF)
-SET (LIB_TYPE_SHARED FALSE)
-IF (BUILD_STATIC_LIBS)
-  SET (LIB_TYPE_STATIC TRUE)
-ENDIF (BUILD_STATIC_LIBS)
-
-add_library( AcesContainer SHARED
+add_library( AcesContainer ${DO_SHARED}
 	aces_iostat.cpp
 	aces_attributestructs.cpp
 	aces_formatter.cpp
