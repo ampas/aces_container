@@ -138,7 +138,6 @@ aces_writeattributes:: ~aces_writeattributes()
 void aces_writeattributes:: SetStreamBuffer( char * outputBuffer1, uint64 outputBufferSize1 )
 {
     if (outputBuffer1) {
-        delete [] outputBuffer;
         outputBuffer = outputBuffer1;
     }
     
