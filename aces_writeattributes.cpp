@@ -116,7 +116,7 @@ aces_writeattributes:: aces_writeattributes()
 {
 	//	Not that we really need a stream. We could just use a char * pointer.
 	
-    outputBuffer = new char[maxAcesHeaderSize + 2 * sizeof(int32)];
+    // outputBuffer = new char[maxAcesHeaderSize + 2 * sizeof(int32)];
     
     pos = 0;
 
@@ -138,7 +138,6 @@ aces_writeattributes:: ~aces_writeattributes()
 void aces_writeattributes:: SetStreamBuffer( char * outputBuffer1, uint64 outputBufferSize1 )
 {
     if (outputBuffer1) {
-        delete [] outputBuffer;
         outputBuffer = outputBuffer1;
     }
     

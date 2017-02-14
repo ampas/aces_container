@@ -112,7 +112,12 @@
 #include <ctime>
 #include <cassert>
 
-#include <unistd.h>
+#ifdef _WIN32
+	#include <io.h>
+#else
+	#include <unistd.h>
+#endif
+
 #include <fcntl.h>
 
 
@@ -203,7 +208,8 @@ err aces_Writer:: configure( const MetaWriteClip & clipMeta )
 	}
 	outputBufferSize = outputRows * (8 + 2 * 4 + outputCols * hi.channels.size() * 2) + 1100000;	
 	
-	assert ( outputBufferSize < 100e6 );
+    // 100e6
+	assert ( outputBufferSize < 150e6 );
 	
 	delete[] pOutputBuffer;
 	pOutputBuffer = new char [ (size_t) outputBufferSize ];
