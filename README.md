@@ -49,6 +49,8 @@ below.
     * Install aces_container
     
             $ brew install aces_container  
+
+		
         
 * From Source
 
@@ -61,8 +63,37 @@ below.
 
     The default process will install ``libAcesContainer.so`` to ``/usr/local/lib``
     and a number of header files into ``/usr/local/include/aces``
+    
+    
+		
+               
+* Windows 
+    * Download CMake Windows Installer from https://cmake.org/download/. Be sure add "CMake" to PATH during the installation. 
 
+	* x86	
+	    
+	    From the root source directory:
 
+			> mkdir build 
+			> cd build
+			> cmake .. -G "Visual Studio 10 2010"
+			
+		Please check the version of Visual Studio on your PC before using cmake to generate any solution files. Some other available versions are ``Visual Studio 11 2012`` and ``Visual Studio 14 2015``. The Visual Studio solution files will be generated in ``.\build``. You can open ``AcesContainer.sln`` project solution file to continue the building process. If succeed, the ``AcesContainer.dll`` should be in ``.\Debug`` and/or ``.\Release``. 
+		
+		
+	* x64	
+	    
+	    From the root source directory:
+
+			> mkdir build
+			> cd build
+			> cmake .. -G "Visual Studio 10 2010 Win64"
+			
+		Please check the version of Visual Studio on your PC before using cmake to generate any solution files. Some other available versions are ``Visual Studio 11 2012 Win64`` and ``Visual Studio 14 2015 Win64``. The Visual Studio solution files will be generated in ``.\build``. You can open ``AcesContainer.sln`` project solution file to continue the building process. If succeed, the ``AcesContainer.dll`` should be in ``.\Debug`` and/or ``.\Release``. 
+
+	
+	
+	
 ## License ##
 
 The ACES Container Reference Implementation is provided by the Academy under the
