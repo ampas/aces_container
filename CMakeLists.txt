@@ -51,7 +51,7 @@ include (GenerateExportHeader)
 
 set( AcesContainer_MAJOR_VERSION 1 )
 set( AcesContainer_MINOR_VERSION 0 )
-set( AcesContainer_PATCH_VERSION 1 )
+set( AcesContainer_PATCH_VERSION 2 )
 set( AcesContainer_VERSION ${AcesContainer_MAJOR_VERSION}.${AcesContainer_MINOR_VERSION}.${AcesContainer_PATCH_VERSION} )
 
 set( INSTALL_LIB_DIR lib CACHE PATH "Install directory for libraries" )
