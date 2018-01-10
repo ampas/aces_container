@@ -30,21 +30,17 @@ below.
 
 * OS X
 
-    * Install homebrew if not already installed
+    * Install Homebrew if not already installed
     
-            $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+            $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
                 
-    * Install Cmake
+    * Install CMake
     
             $ brew install cmake         
              
 ## Installation ##
 
 * OS X
-
-    * Install homebrew if not already installed
-
-            $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
         
     * Install aces_container
     
