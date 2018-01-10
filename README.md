@@ -32,7 +32,7 @@ below.
 
     * Install Homebrew if not already installed
     
-            $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
+            $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
                 
     * Install CMake
     
