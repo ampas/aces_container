@@ -88,6 +88,12 @@ GENERATE_EXPORT_HEADER( AcesContainer
              STATIC_DEFINE AcesContainer_BUILT_AS_STATIC
 )
 
+# Set the build version (VERSION) and the API version (SOVERSION)
+set_target_properties(AcesContainer
+	PROPERTIES
+	VERSION ${AcesContainer_VERSION}
+	SOVERSION ${AcesContainer_MAJOR_VERSION})
+
 install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install (FILES 
 			aces_errors.h
