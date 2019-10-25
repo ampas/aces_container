@@ -45,9 +45,9 @@
 # A.M.P.A.S., WHETHER DISCLOSED OR UNDISCLOSED.
 
 prefix=@CMAKE_INSTALL_PREFIX@
-libdir=@INSTALL_LIB_DIR@
-includedir=@INSTALL_INCLUDE_DIR@
-AcesContainer_includedir=@INSTALL_INCLUDE_DIR@/aces
+libdir=@CMAKE_INSTALL_LIBDIR@
+includedir=@CMAKE_INSTALL_INCLUDEDIR@
+AcesContainer_includedir=@CMAKE_INSTALL_INCLUDEDIR@/aces
 
 Name: AcesContainer
 Description: A library containing an implementation of ACES Image Container File

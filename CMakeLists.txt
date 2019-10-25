@@ -48,35 +48,20 @@ cmake_minimum_required (VERSION 2.6)
 project (AcesContainer)
 
 include (GenerateExportHeader)
+include (GNUInstallDirs)
 
 set( AcesContainer_MAJOR_VERSION 1 )
 set( AcesContainer_MINOR_VERSION 0 )
 set( AcesContainer_PATCH_VERSION 2 )
 set( AcesContainer_VERSION ${AcesContainer_MAJOR_VERSION}.${AcesContainer_MINOR_VERSION}.${AcesContainer_PATCH_VERSION} )
 
-set( INSTALL_LIB_DIR lib CACHE PATH "Install directory for libraries" )
-set( INSTALL_INCLUDE_DIR include CACHE PATH "Install directory for public header files" )
-
-
 if(APPLE)
   set( CMAKE_MACOSX_RPATH 1 )
 endif()
 
 if( WIN32 AND NOT CYGWIN )
-  set(DEF_INSTALL_CMAKE_DIR CMake)
   set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W0" )
-else()
-  set(DEF_INSTALL_CMAKE_DIR lib/CMake/AcesContainer)
 endif()
-set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Install directory for project CMake files" )
-
-## convert install paths to absolute
-foreach( p LIB INCLUDE CMAKE )
-  set( var INSTALL_${p}_DIR )
-  if( NOT IS_ABSOLUTE "${${var}}" )
-    set( ${var} "${CMAKE_INSTALL_PREFIX}/${${var}}" )
-  endif()
-endforeach()
 
 OPTION (BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 IF ( BUILD_SHARED_LIBS )
@@ -103,7 +88,13 @@ GENERATE_EXPORT_HEADER( AcesContainer
              STATIC_DEFINE AcesContainer_BUILT_AS_STATIC
 )
 
-install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${INSTALL_LIB_DIR})
+# Set the build version (VERSION) and the API version (SOVERSION)
+set_target_properties(AcesContainer
+	PROPERTIES
+	VERSION ${AcesContainer_VERSION}
+	SOVERSION ${AcesContainer_MAJOR_VERSION})
+
+install (TARGETS AcesContainer EXPORT AcesContainerTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install (FILES 
 			aces_errors.h
 			aces_genericWriter.h
@@ -118,14 +109,14 @@ install (FILES
 			aces_types.h
 			aces_writeattributes.h
 		 DESTINATION 
-		 	${INSTALL_INCLUDE_DIR}/aces
+		 	${CMAKE_INSTALL_INCLUDEDIR}/aces
 		 )
 
 
 find_package( PkgConfig )
 if ( PKG_CONFIG_FOUND )
 configure_file(config/AcesContainer.pc.in "${PROJECT_BINARY_DIR}/AcesContainer.pc" @ONLY)
-install( FILES "${PROJECT_BINARY_DIR}/AcesContainer.pc" DESTINATION lib/pkgconfig COMPONENT dev )
+install( FILES "${PROJECT_BINARY_DIR}/AcesContainer.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig COMPONENT dev )
 endif()
 
 include_directories(
@@ -142,10 +133,6 @@ export(TARGETS AcesContainer
 # (this registers the build-tree with a global CMake-registry)
 export(PACKAGE AcesContainer)
 # export(PACKAGE AcesContainer_lib)
-
-# Create the FooBarConfig.cmake and FooBarConfigVersion files
-file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
-   "${INSTALL_INCLUDE_DIR}")
 
 # ... for the build tree
 set(CONF_INCLUDE_DIRS "${PROJECT_SOURCE_DIR}" "${PROJECT_BINARY_DIR}")
@@ -166,10 +153,10 @@ configure_file(config/AcesContainerConfigVersion.cmake.in
 install(FILES
   "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/AcesContainerConfig.cmake"
   "${PROJECT_BINARY_DIR}/AcesContainerConfigVersion.cmake"
-  DESTINATION "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake" COMPONENT dev)
  
 # Install the export set for use with the install-tree
 install(EXPORT AcesContainerTargets DESTINATION
-  "${INSTALL_CMAKE_DIR}" COMPONENT dev)
+  "${CMAKE_INSTALL_LIBDIR}/cmake" COMPONENT dev)
   
   
