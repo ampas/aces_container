@@ -247,7 +247,10 @@ longitude			( 0.0f ),
 orientation			( 0 ), 
 originalImageFlag	( -1 ), 
 timecodeRate		( 0 ), 
-utcOffset			( 0.0f )
+utcOffset			( 0.0f ),
+optionalAttributes  ( false ),
+dynamicAttributes   ( false ),
+customAttributes    ( false )
 
 {	
 	//	initialize required attributes to required values

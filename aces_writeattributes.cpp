@@ -626,7 +626,61 @@ void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,
 	wrtAttr	(	"pixelAspectRatio",			hi.pixelAspectRatio );
 	wrtAttr	(	"screenWindowCenter",		hi.screenWindowCenter );
 	wrtAttr	(	"screenWindowWidth",		hi.screenWindowWidth );
-		
+    
+    // optional attributes
+    if ( hi.optionalAttributes ) {
+    wrtAttr (    "altitude",                hi.altitude );
+    wrtAttr (    "aperture",                hi.aperture );
+    wrtAttr (    "cameraFirmwareVersion",   hi.cameraFirmwareVersion );
+    wrtAttr (    "cameraIdentifier",        hi.cameraIdentifier );
+    wrtAttr (    "cameraLabel",             hi.cameraLabel );
+    wrtAttr (    "cameraMake",              hi.cameraMake );
+    wrtAttr (    "cameraModel",             hi.cameraModel );
+    wrtAttr (    "cameraUpDirection",       hi.cameraUpDirection );
+    wrtAttr (    "cameraViewingDirection",  hi.cameraViewingDirection );
+    wrtAttr (    "cameraPosition",          hi.cameraPosition );
+    wrtAttr (    "cameraSerialNumber",      hi.cameraSerialNumber );
+    wrtAttr (    "captureRate",             hi.captureRate );
+    wrtAttr (    "comments",                hi.comments );
+    wrtAttr (    "convergenceDistance",     hi.convergenceDistance );
+    wrtAttr (    "expTime",                 hi.expTime );
+    wrtAttr (    "focalLength",             hi.focalLength );
+    wrtAttr (    "focus",                   hi.focus );
+    wrtAttr (    "framesPerSecond",         hi.framesPerSecond );
+    wrtAttr (    "free",                    hi.free );
+    wrtAttr (    "headerChecksum",          hi.headerChecksum );
+    wrtAttr (    "imageChecksum",           hi.imageChecksum );
+    wrtAttr (    "imageCounter",            hi.imageCounter );
+    wrtAttr (    "imageRotation",           hi.imageRotation );
+    wrtAttr (    "interocularDistance",     hi.interocularDistance );
+    wrtAttr (    "isoSpeed",                hi.isoSpeed );
+    wrtAttr (    "latitude",                hi.latitude );
+    wrtAttr (    "lensAttributes",          hi.lensAttributes );
+    wrtAttr (    "lensMake",                hi.lensMake );
+    wrtAttr (    "lensModel",               hi.lensModel );
+    wrtAttr (    "lensSerialNumber",        hi.lensSerialNumber );
+    wrtAttr (    "longitude",               hi.longitude );
+    }
+    
+    // dynamic attributes
+    if ( hi.dynamicAttributes ) {
+    wrtAttr (    "capDate",                 hi.capDate );
+    wrtAttr (    "imageCounter",            hi.imageCounter );
+    wrtAttr (    "keyCode",                 hi.keyCode );
+    wrtAttr (    "timeCode",                hi.timeCode );
+    wrtAttr (    "uuid",                    hi.uuid );
+    }
+    
+    // custom attributes
+    if ( hi.customAttributes ) {
+    wrtAttr (    "artist",                  hi.artist );
+    wrtAttr (    "copyright",               hi.copyright );
+    wrtAttr (    "creator",                 hi.creator );
+    wrtAttr (    "dateTime",                hi.dateTime );
+    wrtAttr (    "orientation",                hi.orientation );
+    wrtAttr (    "software",                hi.software );
+    }
+  
 	// terminator
 	writeChar ( 0 );
     

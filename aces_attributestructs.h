@@ -297,6 +297,7 @@ struct acesHeaderInfo  {
 	string			storageMediaSerialNumber;		
 	int32			timecodeRate;			//	fps
 	float			utcOffset;				//	-seconds, = (UTC time - local time)	TIFF tag 34858
+    bool            optionalAttributes;     //
 	
 	//	dynamic == expected to be unique for each image
 	string			capDate;				//	YYYY:MM:DD hh:mm:ss = capture time =  TIFF tag 36867 dateTimeOriginal
@@ -304,7 +305,7 @@ struct acesHeaderInfo  {
 	keycode			keyCode;	
 	timecode		timeCode;				//						TIFF tag 51043
 	string			uuid;					//						TIFF tag 42016 ImageUniqueID
-	
+    bool            dynamicAttributes;      //
 	
 	//	sample custom (TIFF/EP) attributes not defined in the ACES spec
 	string			artist;					//						TIFF tag 315	artist
@@ -312,6 +313,7 @@ struct acesHeaderInfo  {
 	string			dateTime;				//	YYYY-MM-DDThh:mm:ssTZ when THIS file was created	TIFF 306 dateTime
 	int32			orientation;			//	flipped, rotated	TIFF tag 274	orientation
 	string			software;				//						TIFF tag 305	software
+    bool            customAttributes;       //
 };
 
 ostream& operator<< ( ostream& s, const acesHeaderInfo& v );
