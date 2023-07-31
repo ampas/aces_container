@@ -228,7 +228,6 @@ acesImageContainerFlag	( 1 ),
 pixelAspectRatio	( 1.0f ),
 screenWindowWidth	( 1.0f ),
 
-
 //	initialize optional attributes to "ignored" values
 altitude			( 0.0f ),
 aperture			( 0.0f ), 
@@ -248,7 +247,6 @@ orientation			( 0 ),
 originalImageFlag	( -1 ), 
 timecodeRate		( 0 ), 
 utcOffset			( 0.0f )
-
 {	
 	//	initialize required attributes to required values
 	Chromaticities			=	ChromaticitiesForACES;

@@ -305,7 +305,6 @@ struct acesHeaderInfo  {
 	timecode		timeCode;				//						TIFF tag 51043
 	string			uuid;					//						TIFF tag 42016 ImageUniqueID
 	
-	
 	//	sample custom (TIFF/EP) attributes not defined in the ACES spec
 	string			artist;					//						TIFF tag 315	artist
 	string			copyright;				//						TIFF tag 33432	copyright

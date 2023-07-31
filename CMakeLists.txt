@@ -44,7 +44,7 @@
 # IMPLEMENTATION, OR APPLICATIONS THEREOF, HELD BY PARTIES OTHER THAN 
 # A.M.P.A.S., WHETHER DISCLOSED OR UNDISCLOSED.
 
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 3.1)
 project (AcesContainer)
 
 include (GenerateExportHeader)
@@ -66,7 +66,7 @@ if( WIN32 AND NOT CYGWIN )
   set(DEF_INSTALL_CMAKE_DIR CMake)
   set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W0" )
 else()
-  set(DEF_INSTALL_CMAKE_DIR lib/CMake/AcesContainer)
+  set(DEF_INSTALL_CMAKE_DIR lib/cmake/AcesContainer)
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Install directory for project CMake files" )
 
@@ -135,14 +135,7 @@ include_directories(
 # Add all targets to the build-tree export set
 export(TARGETS AcesContainer
   FILE "${PROJECT_BINARY_DIR}/AcesContainerTargets.cmake")
-# export(TARGETS AcesContainer_lib
-#  FILE "${PROJECT_BINARY_DIR}/AcesContainerTargets.cmake")
  
-# Export the package for use from the build-tree
-# (this registers the build-tree with a global CMake-registry)
-export(PACKAGE AcesContainer)
-# export(PACKAGE AcesContainer_lib)
-
 # Create the FooBarConfig.cmake and FooBarConfigVersion files
 file(RELATIVE_PATH REL_INCLUDE_DIR "${INSTALL_CMAKE_DIR}"
    "${INSTALL_INCLUDE_DIR}")
@@ -154,7 +147,7 @@ configure_file(config/AcesContainerConfig.cmake.in
   "${PROJECT_BINARY_DIR}/AcesContainerConfig.cmake" @ONLY)
 
 # ... for the install tree
-set(CONF_INCLUDE_DIRS "\${AcesContainer_CMAKE_DIR}/${REL_INCLUDE_DIR}" "\${AcesContainer_CMAKE_DIR}/${REL_INCLUDE_DIR}/aces")
+set(CONF_INCLUDE_DIRS "${INSTALL_INCLUDE_DIR}")
 set(CONF_LIB_DIRS "${INSTALL_LIB_DIR}")
 configure_file(config/AcesContainerConfig.cmake.in
   "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/AcesContainerConfig.cmake" @ONLY)

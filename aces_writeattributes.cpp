@@ -107,6 +107,31 @@
 
 #include <cassert>
 
+#define check_wrtAttr(condition, attribute, value) \
+    if (condition) wrtAttr(attribute, value)
+
+#define check_multiview(value) ((value).size() > 0)
+
+#define check_keycode(value)  ((value).filmMfcCode > 0 || \
+                               (value).filmType > 0 || \
+                               (value).prefix > 0 || \
+                               (value).count > 0 || \
+                               (value).perfOffset > 0 || \
+                               (value).perfsPerFrame > 0 || \
+                               (value).perfsPerCount > 0)
+
+#define check_timecode(value) ((value).timeAndFlags > 0 || \
+                               (value).userData > 0)
+
+#define check_v3f(value)      ((value).x != 0.0 || \
+                               (value).y != 0.0 || \
+                               (value).z != 0.0)
+
+#define check_float(value)     (value != 0.0f)
+#define check_int32(value)     (value != 0)
+#define check_string(value)   ((value).size())
+#define check_srational(value) (value.d != 0.0)
+
 using namespace std;
 
 //	=====================================================================
@@ -616,17 +641,73 @@ void aces_writeattributes:: writeHeader ( acesHeaderInfo & hi,
 	writeMagicNumberAndVersion ();
 	
 	// required aces attributes
-	wrtAttr	(	"acesImageContainerFlag",	hi.acesImageContainerFlag );
-	wrtAttr	(	"channels",					hi.channels );
-	wrtAttr	(	"chromaticities",			hi.Chromaticities );
-	wrtAttr	(	"compression",				hi.Compression );
-	wrtAttr	(	"dataWindow",				hi.dataWindow );
-	wrtAttr	(	"displayWindow",			hi.displayWindow );
-	wrtAttr	(	"lineOrder",				hi.LineOrder );
-	wrtAttr	(	"pixelAspectRatio",			hi.pixelAspectRatio );
-	wrtAttr	(	"screenWindowCenter",		hi.screenWindowCenter );
-	wrtAttr	(	"screenWindowWidth",		hi.screenWindowWidth );
-		
+	wrtAttr	(	"acesImageContainerFlag",	                hi.acesImageContainerFlag );
+	wrtAttr	(	"channels",					                hi.channels );
+	wrtAttr	(	"chromaticities",			                hi.Chromaticities );
+	wrtAttr	(	"compression",				                hi.Compression );
+	wrtAttr	(	"dataWindow",				                hi.dataWindow );
+	wrtAttr	(	"displayWindow",			                hi.displayWindow );
+	wrtAttr	(	"lineOrder",				                hi.LineOrder );
+	wrtAttr	(	"pixelAspectRatio",			                hi.pixelAspectRatio );
+	wrtAttr	(	"screenWindowCenter",		                hi.screenWindowCenter );
+	wrtAttr	(	"screenWindowWidth",		                hi.screenWindowWidth );
+
+    // aces conditional attributes
+    check_wrtAttr(check_float(hi.altitude),                 "altitude",                 hi.altitude);
+    check_wrtAttr(check_float(hi.aperture),                 "aperture",                 hi.aperture);
+    check_wrtAttr(check_string(hi.cameraFirmwareVersion),   "cameraFirmwareVersion",    hi.cameraFirmwareVersion);
+    check_wrtAttr(check_string(hi.cameraIdentifier),        "cameraIdentifier",         hi.cameraIdentifier);
+    check_wrtAttr(check_string(hi.cameraLabel),             "cameraLabel",              hi.cameraLabel);
+    check_wrtAttr(check_string(hi.cameraMake),              "cameraMake",               hi.cameraMake);
+    check_wrtAttr(check_string(hi.cameraModel),             "cameraModel",              hi.cameraModel);
+    check_wrtAttr(check_v3f(hi.cameraUpDirection),          "cameraUpDirection",        hi.cameraUpDirection);
+    check_wrtAttr(check_v3f(hi.cameraViewingDirection),     "cameraUpDirection",        hi.cameraUpDirection);
+    check_wrtAttr(check_v3f(hi.cameraPosition),             "cameraUpDirection",        hi.cameraUpDirection);
+    check_wrtAttr(check_string(hi.cameraSerialNumber),      "cameraUpDirection",        hi.cameraUpDirection);
+	check_wrtAttr(check_srational(hi.captureRate),          "captureRate",              hi.captureRate);
+	check_wrtAttr(check_float(hi.convergenceDistance),      "convergenceDistance",      hi.convergenceDistance);
+	check_wrtAttr(check_float(hi.expTime),                  "expTime",                  hi.expTime);
+	check_wrtAttr(check_float(hi.focalLength),              "focalLength",              hi.focalLength);
+    check_wrtAttr(check_float(hi.focus),                    "focus",                    hi.focus);
+    check_wrtAttr(check_srational(hi.framesPerSecond),      "framesPerSecond",          hi.framesPerSecond);
+    check_wrtAttr(check_string(hi.free),                    "free",                     hi.free);
+    check_wrtAttr(check_string(hi.headerChecksum),          "headerChecksum",           hi.headerChecksum);
+    check_wrtAttr(check_string(hi.imageChecksum),           "imageChecksum",            hi.imageChecksum);
+    check_wrtAttr(check_float(hi.imageRotation),            "imageRotation",            hi.imageRotation);
+    check_wrtAttr(check_float(hi.interocularDistance),      "interocularDistance",      hi.interocularDistance);
+    check_wrtAttr(check_float(hi.isoSpeed),                 "isoSpeed",                 hi.isoSpeed);
+    check_wrtAttr(check_float(hi.latitude),                 "latitude",                 hi.latitude);
+    check_wrtAttr(check_string(hi.lensAttributes),          "lensAttributes",           hi.lensAttributes);
+    check_wrtAttr(check_string(hi.lensMake),                "lensMake",                 hi.lensMake);
+    check_wrtAttr(check_string(hi.lensModel),               "lensModel",                hi.lensModel);
+    check_wrtAttr(check_string(hi.lensSerialNumber),        "lensSerialNumber",         hi.lensSerialNumber);
+    check_wrtAttr(check_float(hi.longitude),                "longitude",                hi.longitude);
+    check_wrtAttr(check_multiview(hi.multiView),            "multiView",                hi.multiView);
+    check_wrtAttr(check_int32(hi.originalImageFlag),        "originalImageFlag",        hi.originalImageFlag);
+    check_wrtAttr(check_string(hi.owner),                   "owner",                    hi.owner);
+    check_wrtAttr(check_string(hi.recorderFirmwareVersion), "recorderFirmwareVersion",  hi.recorderFirmwareVersion);
+    check_wrtAttr(check_string(hi.recorderMake),            "recorderMake",             hi.recorderMake);
+    check_wrtAttr(check_string(hi.recorderModel),           "recorderModel",            hi.recorderModel);
+    check_wrtAttr(check_string(hi.recorderSerialNumber),    "recorderSerialNumber",     hi.recorderSerialNumber);
+    check_wrtAttr(check_string(hi.reelName),                "reelName",                 hi.reelName);
+    check_wrtAttr(check_string(hi.storageMediaSerialNumber),"storageMediaSerialNumber", hi.storageMediaSerialNumber);
+    check_wrtAttr(check_int32(hi.timecodeRate),             "timecodeRate",             hi.timecodeRate);
+    check_wrtAttr(check_float(hi.utcOffset),                "utcOffset",                hi.utcOffset);
+    
+    // aces conditional dynamic attributes
+    check_wrtAttr(check_string(hi.capDate),                 "capDate",                 hi.capDate);
+    check_wrtAttr(check_int32(hi.imageCounter),             "imageCounter",            hi.imageCounter);
+    check_wrtAttr(check_keycode(hi.keyCode),                "keyCode",                 hi.keyCode);
+    check_wrtAttr(check_timecode(hi.timeCode),              "timeCode",                hi.timeCode);
+    check_wrtAttr(check_string(hi.uuid),                    "lensAttributes",          hi.lensAttributes);
+    
+    // aces conditional custom (TIFF/EP) attributes
+    check_wrtAttr(check_string(hi.artist),                  "artist",                  hi.artist);
+    check_wrtAttr(check_string(hi.copyright),               "copyright",               hi.copyright);
+    check_wrtAttr(check_string(hi.dateTime),                "dateTime",                hi.dateTime);
+    check_wrtAttr(check_int32(hi.orientation),              "orientation",             hi.orientation);
+    check_wrtAttr(check_string(hi.software),                "software",                hi.software);
+    
 	// terminator
 	writeChar ( 0 );
     
