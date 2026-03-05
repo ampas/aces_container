@@ -1,3 +1,16 @@
+> # ⚠️ Status: Project Complete & Archived
+> As part of the ACES project’s transition to the Academy Software Foundation (ASWF), this repository is now considered **complete** and has been archived.
+>
+> This repository will remain available in a read-only state to allow any legacy tools or build systems that depend on `aces-container` to continue functioning without interruption.
+>
+> Other ASWF-hosted projects have surpassed this repository's functionality and, more importantly, are actively maintained:
+> 
+> * **OpenImageIO (OIIO):**  Provides native support for ACES2065-4 (SMPTE ST2065-4).
+> * **rawtoaces:** This ASWF project has transitioned to using OIIO's ACES2065-4 support in version 2+.
+>
+> It is strongly recommended that new projects **do not** implement `aces-container` and instead utilize OIIO or other active ASWF-maintained libraries for ACES support.
+
+
 # ACES Container Reference Implementation #
 
 This folder contains a reference implementation for an ACES container file 
